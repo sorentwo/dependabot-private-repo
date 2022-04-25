@@ -1,0 +1,13 @@
+.dockerignore
+.elixir_ls
+.git
+.github
+.gitignore
+.tool-versions
+Dockerfile
+README.md
+TODO
+_build
+bin
+deps
+test

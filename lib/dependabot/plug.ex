@@ -1,10 +1,10 @@
 defmodule Dependabot.Plug do
   use Plug.Builder
 
-  plug Plug.Logger
-  plug :auth
-  plug :static
-  plug :not_found
+  plug(Plug.Logger)
+  plug(:auth)
+  plug(:static)
+  plug(:not_found)
 
   defp auth(conn, _opts) do
     token = Application.fetch_env!(:dependabot, :auth_token)
@@ -21,7 +21,12 @@ defmodule Dependabot.Plug do
   end
 
   defp static(conn, _opts) do
-    opts = Plug.Static.init(at: "/", from: "priv/registry")
+    from =
+      :dependabot
+      |> :code.priv_dir()
+      |> Path.join("registry")
+
+    opts = Plug.Static.init(at: "/", from: from)
 
     Plug.Static.call(conn, opts)
   end
