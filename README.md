@@ -1,21 +1,26 @@
 # Dependabot
 
-**TODO: Add description**
+Private hex repo built for testing dependabot.
 
-## Installation
+## Usage
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `dependabot` to your list of dependencies in `mix.exs`:
+Build and run the app locally:
 
-```elixir
-def deps do
-  [
-    {:dependabot, "~> 0.1.0"}
-  ]
-end
+```bash
+MIX_ENV=prod mix do deps.get, release
+
+_build/prod/rel/dependabot/bin/dependabot start
 ```
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at <https://hexdocs.pm/dependabot>.
+Run the app within the docker container locally:
 
+```bash
+docker build -t dependabot/private .
+docker run --env PORT=8000 -p 8000:8000 dependabot/private
+```
+
+Or, deploy to fly by changing the name in `fly.toml` and then run:
+
+```bash
+fly launch
+```
