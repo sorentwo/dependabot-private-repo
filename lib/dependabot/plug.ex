@@ -6,6 +6,8 @@ defmodule Dependabot.Plug do
   plug(:static)
   plug(:not_found)
 
+  defp auth(%{path_info: ["public_key"]} = conn, _opts), do: conn
+
   defp auth(conn, _opts) do
     token = Application.fetch_env!(:dependabot, :auth_token)
 
